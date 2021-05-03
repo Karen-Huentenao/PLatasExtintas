@@ -26,3 +26,35 @@ Ahora voy a leer los datos con los que voy a trabajar:
 plants <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-08-18/plants.csv")
 ```
 
+## Filtrando los datos para resolver el ejemplo 1 
+
+el codigo que voy a ejecutar ahora es para resolver el problema en el siguiente [slide] deberi air el link d ela diapo pero no lo tengo
+para poner en la base de datos solo los datos de chile y solo usar las columnas para pais (*country*), la especie (*binomial_name*) y la categoria de IUCN (*red_list_category*)
+
+```{r}
+Chile <- plants %>% 
+  dplyr::filter(country == "Chile")
+
+Chile
+```
+
+seleccionamos un par de columnas
+
+```{r}
+Chile <- plants %>% 
+  dplyr::filter(country == "Chile") %>% 
+  dplyr::select(binomial_name, country)
+
+Chile
+```
+
+agregamos el ref list category para saber cual de estas especies esta extinta en silvestria
+```{r}
+Chile <- plants %>% 
+  dplyr::filter(country == "Chile") %>% 
+  dplyr::select(binomial_name, country, red_list_category)
+
+Chile
+```
+
+

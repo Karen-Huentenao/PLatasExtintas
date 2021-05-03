@@ -1,7 +1,7 @@
 Trabajo con plantas extintas
 ================
 
-# iNtroduccon
+# Introduccon
 
 en este documento trabajremos para explorar la identidad de plantas que
 se encuentran extintas en silvestria o totalmente extintas segun
@@ -48,3 +48,62 @@ plants <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tid
     ##   red_list_category = col_character()
     ## )
     ## i Use `spec()` for the full column specifications.
+
+## Filtrando los datos para resolver el ejemplo 1
+
+el codigo que voy a ejecutar ahora es para resolver el problema en el
+siguiente \[slide\] deberi air el link d ela diapo pero no lo tengo para
+poner en la base de datos solo los datos de chile y solo usar las
+columnas para pais (*country*), la especie (*binomial\_name*) y la
+categoria de IUCN (*red\_list\_category*)
+
+``` r
+Chile <- plants %>% 
+  dplyr::filter(country == "Chile")
+
+Chile
+```
+
+    ## # A tibble: 2 x 24
+    ##   binomial_name    country continent group   year_last_seen threat_AA threat_BRU
+    ##   <chr>            <chr>   <chr>     <chr>   <chr>              <dbl>      <dbl>
+    ## 1 Santalum fernan~ Chile   South Am~ Flower~ 1900-1919              0          1
+    ## 2 Sophora toromiro Chile   South Am~ Flower~ 1920-1939              0          0
+    ## # ... with 17 more variables: threat_RCD <dbl>, threat_ISGD <dbl>,
+    ## #   threat_EPM <dbl>, threat_CC <dbl>, threat_HID <dbl>, threat_P <dbl>,
+    ## #   threat_TS <dbl>, threat_NSM <dbl>, threat_GE <dbl>, threat_NA <dbl>,
+    ## #   action_LWP <dbl>, action_SM <dbl>, action_LP <dbl>, action_RM <dbl>,
+    ## #   action_EA <dbl>, action_NA <dbl>, red_list_category <chr>
+
+seleccionamos un par de columnas
+
+``` r
+Chile <- plants %>% 
+  dplyr::filter(country == "Chile") %>% 
+  dplyr::select(binomial_name, country)
+
+Chile
+```
+
+    ## # A tibble: 2 x 2
+    ##   binomial_name           country
+    ##   <chr>                   <chr>  
+    ## 1 Santalum fernandezianum Chile  
+    ## 2 Sophora toromiro        Chile
+
+agregamos el ref list category para saber cual de estas especies esta
+extinta en silvestria
+
+``` r
+Chile <- plants %>% 
+  dplyr::filter(country == "Chile") %>% 
+  dplyr::select(binomial_name, country, red_list_category)
+
+Chile
+```
+
+    ## # A tibble: 2 x 3
+    ##   binomial_name           country red_list_category  
+    ##   <chr>                   <chr>   <chr>              
+    ## 1 Santalum fernandezianum Chile   Extinct            
+    ## 2 Sophora toromiro        Chile   Extinct in the Wild
